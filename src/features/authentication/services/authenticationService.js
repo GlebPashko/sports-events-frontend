@@ -1,21 +1,18 @@
-// src/services/authService.js
 
-const API_URL = 'http://localhost:8080/auth';
+
+import { API_ENDPOINTS } from '../../../data/apiConfig';
 
 export const loginUser = async (email, password) => {
-    const loginData = { email, password };
-
     try {
-        const response = await fetch(`${API_URL}/login`, {
+        const response = await fetch(`${API_ENDPOINTS.AUTH}/login`, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(loginData),
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password }),
         });
 
         if (!response.ok) {
-            throw new Error(`Login failed: ${response.status}`);
+            const errorData = await response.json();
+            throw new Error(errorData.message || `Login failed: ${response.status}`);
         }
 
         const result = await response.json();
@@ -25,3 +22,33 @@ export const loginUser = async (email, password) => {
         throw error;
     }
 };
+
+export const registerUser = async (email, password, repeatPassword, firstName, lastName, city, sex) => {
+    try {
+        const response = await fetch(`${API_ENDPOINTS.AUTH}/registration`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                email,
+                password,
+                repeatPassword,
+                firstName,
+                lastName,
+                city,
+                sex
+            }),
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || `Registration failed: ${response.status}`);
+        }
+
+        const result = await response.json();
+        localStorage.setItem('token', result.token);
+        return result;
+    } catch (error) {
+        throw error;
+    }
+};
+
