@@ -12,7 +12,7 @@ const Menu = () => {
                         <li><Link className="menu__link" to="/catalog">Каталог книжок</Link></li>
                         <li><Link className="menu__link" to="/cart">Кошик</Link></li>
                         <li><Link className="menu__link" to="/order">Замовлення</Link></li>
-                        <li><Link className="menu__link" to="/register">Зареєструватися</Link></li>
+                        <li><Link className="menu__link" to="/registration">Зареєструватися</Link></li>
                         <li><Link className="menu__link" to="/login">Авторизація</Link></li>
                     </ul>
                 </nav>
