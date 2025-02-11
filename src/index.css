@@ -1,0 +1,41 @@
+body {
+  margin: 0;
+}
+
+h1, h2, h3, h4, h5, figure, p, ol, ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ol[role="list"], ul[role="list"] {
+  list-style: none;
+  padding-inline: 0;
+}
+
+h1, h2, h3, h4, h5 {
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+img {
+  display: block;
+  max-inline-size: 100%;
+}
+
+:root {
+  --container-padding-inline: 13%;
+
+  @media screen and (max-width: 768px) {
+    --container-padding-inline: 6%;
+  }
+}
+
+.container {
+  padding: 0 var(--container-padding-inline);
+}

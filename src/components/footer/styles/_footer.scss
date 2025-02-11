@@ -1,0 +1,40 @@
+.footer {
+  background: #222;
+  color: #fff;
+  text-align: center;
+  padding: 20px 0;
+  min-height: 75px;
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  &__text {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+
+  &__links {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+
+    li {
+      display: inline;
+
+      a {
+        color: #ffcc00;
+        text-decoration: none;
+        transition: color 0.3s;
+
+        &:hover {
+          color: #ffa500;
+        }
+      }
+    }
+  }
+}

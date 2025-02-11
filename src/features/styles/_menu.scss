@@ -1,0 +1,32 @@
+.menu {
+  top: 0;
+  left: 0;
+  width: 100%;
+  position: fixed;
+  z-index: 10;
+  background-color: #000000;
+  padding: 20px 25px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__list {
+    display: flex;
+    gap: 30px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  &__link {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: #f39c12;
+    }
+  }
+}
