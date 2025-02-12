@@ -142,7 +142,7 @@ const Registration = () => {
 
                     {/* Блок авторизації */}
                     <div className="register__wrapper__sign-in-element">
-                        <h2 className="sign-in-element__title">Привіт, Друже!</h2>
+                        <h2 className="sign-in-element__title">Ласкаво просимо!</h2>
                         <div className="sign-in-element__text">Якщо ти вже маєш акаунт, пропонуємо авторизуватися</div>
                         <button className="sign-in-element__login-button" onClick={() => navigate('/login')}>
                             Авторизуватися
