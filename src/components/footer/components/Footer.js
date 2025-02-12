@@ -5,7 +5,7 @@ const Footer = () => {
     return (
         <footer className="footer">
             <div className="footer__content">
-                <p className="footer__text">© {new Date().getFullYear()} Book Store. Всі права захищені.</p>
+                <p className="footer__text">© {new Date().getFullYear()} Event Project. Всі права захищені.</p>
                 <ul className="footer__links">
                     <li><a href="/">Про нас</a></li>
                     <li><a href="/">Контакти</a></li>
