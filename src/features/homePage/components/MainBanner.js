@@ -16,7 +16,7 @@ const MainBanner = ({eventCount}) => {
                             Почати перегляд
                         </button>
                         <button className="main-banner__btn outline"
-                                onClick={() => document.getElementById('categories').scrollIntoView({behavior: 'smooth'})}>
+                                onClick={() => document.getElementById('categories__title').scrollIntoView({behavior: 'smooth'})}>
                             До категорій
                         </button>
 
