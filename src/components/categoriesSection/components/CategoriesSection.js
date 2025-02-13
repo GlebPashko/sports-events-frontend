@@ -33,7 +33,7 @@ const CategoriesSection = () => {
                 <div className="categories__grid">
                     {categories.map((category) => (
                         <div key={category.id} className="category-card"
-                             onClick={() => navigate('/categories/' + category.id)}>
+                             onClick={() => navigate('/categories/' + category.id + '/events')}>
                             <h3 className="category-card__name">{category.name}</h3>
                             <p className="category-card__description">{category.description}</p>
                         </div>

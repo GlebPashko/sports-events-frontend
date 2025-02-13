@@ -1,10 +1,10 @@
 import React, {useEffect, useRef, useState} from "react";
-import { debounce } from 'lodash';
-import { useNavigate } from "react-router-dom";
-import { findAllEvents } from "../services/eventSerivce";
+import {debounce} from 'lodash';
+import {useNavigate} from "react-router-dom";
+import {findAllEvents} from "../services/eventSerivce";
 import "../styles/style.scss";
-import CategoriesSection from "../../../components/categoriesSection/components/CategoriesSection";
 import CategoriesButton from "../../../components/categoriesButton/components/CategoriesButton";
+import EventFilters from "../../../components/eventFilters/components/eventFilters";
 
 const Events = () => {
     const navigate = useNavigate();
@@ -23,7 +23,7 @@ const Events = () => {
     useEffect(() => {
         const loadEvents = async () => {
             try {
-                const filters = {};
+                const filters = { };
 
                 if (title) filters.title = title;
                 if (startDate) filters.startDate = startDate + "T00:00:00";
@@ -37,7 +37,12 @@ const Events = () => {
                     throw new Error("Дані про івенти відсутні");
                 }
 
-                setEvents(prevEvents => [...prevEvents, ...result.events]);
+                if (thisPage === 0) {
+                    setEvents(result.events);
+                } else {
+                    setEvents(prevEvents => [...prevEvents, ...result.events]);
+                }
+
                 setHasNextPage(result.hasNextPage);
             } catch (error) {
                 setError(error.message);
@@ -47,80 +52,65 @@ const Events = () => {
         loadEvents();
     }, [title, thisPage, startDate, endDate, city, onlyAvailable]);
 
-    const debouncedSearch = debounce((value) => {
-        setTitle(value);
-    }, 500);
-
-    const debouncedCity = debounce((value) => {
-        setCity(value);
-    }, 500);
-
-    const debouncedOnlyAvailable = debounce((value) => {
-        setOnlyAvailable(value);
-    }, 500);
-
-    const handleStartDateChange = (e) => {
-        const date = e.target.value;
-        setStartDate(date);
-    };
-
-    const handleEndDateChange = (e) => {
-        const date = e.target.value;
-        setEndDate(date);
-    };
-
-    useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (categoriesRef.current && !categoriesRef.current.contains(event.target)) {
-                setShowCategories(false);
-            }
-        };
-        if (showCategories) {
-            document.addEventListener('mousedown', handleClickOutside);
-        }
-        return () => document.removeEventListener('mousedown', handleClickOutside);
-    }, [showCategories]);
+    // useEffect(() => {
+    //     const handleClickOutside = (event) => {
+    //         if (categoriesRef.current && !categoriesRef.current.contains(event.target)) {
+    //             setShowCategories(false);
+    //         }
+    //     };
+    //     if (showCategories) {
+    //         document.addEventListener('mousedown', handleClickOutside);
+    //     }
+    //     return () => document.removeEventListener('mousedown', handleClickOutside);
+    // }, [showCategories]);
 
     return (
         <section className="events">
             <h1 className="events__title">Всі івенти</h1>
 
-            <div className="events__filters">
-                <input
-                    type="text"
-                    placeholder="Пошук за назвою..."
-                    className="events__search"
-                    onChange={(e) => debouncedSearch(e.target.value)}
-                />
+            <EventFilters
+                setTitle={setTitle}
+                setStartDate={setStartDate}
+                setEndDate={setEndDate}
+                setCity={setCity}
+                setOnlyAvailable={setOnlyAvailable}
+            />
+            {/*<div className="events__filters">*/}
+            {/*    <input*/}
+            {/*        type="text"*/}
+            {/*        placeholder="Пошук за назвою..."*/}
+            {/*        className="events__search"*/}
+            {/*        onChange={(e) => debouncedSearch(e.target.value)}*/}
+            {/*    />*/}
 
-                <input
-                    type="date"
-                    className="events__filter"
-                    value={startDate}
-                    onChange={handleStartDateChange}
-                />
-                <input
-                    type="date"
-                    className="events__filter"
-                    value={endDate}
-                    onChange={handleEndDateChange}
-                />
+            {/*    <input*/}
+            {/*        type="date"*/}
+            {/*        className="events__filter"*/}
+            {/*        value={startDate}*/}
+            {/*        onChange={handleStartDateChange}*/}
+            {/*    />*/}
+            {/*    <input*/}
+            {/*        type="date"*/}
+            {/*        className="events__filter"*/}
+            {/*        value={endDate}*/}
+            {/*        onChange={handleEndDateChange}*/}
+            {/*    />*/}
 
-                <select className="events__filter" value={city} onChange={(e) => debouncedCity(e.target.value)}>
-                    <option value="">Оберіть місто</option>
-                    <option value="Kyiv">Київ</option>
-                    <option value="Odesa">Одеса</option>
-                </select>
+            {/*    <select className="events__filter" value={city} onChange={(e) => debouncedCity(e.target.value)}>*/}
+            {/*        <option value="">Оберіть місто</option>*/}
+            {/*        <option value="Kyiv">Київ</option>*/}
+            {/*        <option value="Odesa">Одеса</option>*/}
+            {/*    </select>*/}
 
-                <select className="events__filter" value={onlyAvailable}
-                        onChange={(e) => debouncedOnlyAvailable(e.target.value)}>
-                    <option value="true">Тільки доступні</option>
-                    <option value="false">Всі</option>
-                </select>
-            </div>
+            {/*    <select className="events__filter" value={onlyAvailable}*/}
+            {/*            onChange={(e) => debouncedOnlyAvailable(e.target.value)}>*/}
+            {/*        <option value="true">Тільки доступні</option>*/}
+            {/*        <option value="false">Всі</option>*/}
+            {/*    </select>*/}
+            {/*</div>*/}
 
             <div className="categories-event-section" ref={categoriesRef}>
-                <CategoriesButton />
+                <CategoriesButton/>
             </div>
 
             <div className="events__grid">
