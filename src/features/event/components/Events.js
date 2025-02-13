@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { findAllEvents } from "../services/eventSerivce";
 import "../styles/style.scss";
 import CategoriesSection from "../../../components/categoriesSection/components/CategoriesSection";
+import CategoriesButton from "../../../components/categoriesButton/components/CategoriesButton";
 
 const Events = () => {
     const navigate = useNavigate();
@@ -68,17 +69,6 @@ const Events = () => {
         setEndDate(date);
     };
 
-    //categories
-    const handleToggleCategories = () => {
-        setShowCategories(!showCategories);
-    };
-
-    const handleClickOutside = (event) => {
-        if (showCategories && !event.target.closest('.categories-section')) {
-            setShowCategories(false);
-        }
-    };
-
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (categoriesRef.current && !categoriesRef.current.contains(event.target)) {
@@ -129,11 +119,8 @@ const Events = () => {
                 </select>
             </div>
 
-            <div className="events__categories" ref={categoriesRef}>
-                <button onClick={() => setShowCategories(!showCategories)} className="categories-button">
-                    Категорії
-                </button>
-                {showCategories && <CategoriesSection/>}
+            <div className="categories-event-section" ref={categoriesRef}>
+                <CategoriesButton />
             </div>
 
             <div className="events__grid">
