@@ -1,17 +1,10 @@
+import {API_ENDPOINTS} from "../../../data/apiConfig";
 
-import { API_ENDPOINTS } from '../../../data/apiConfig';
-
-export const findAllEvents = async (page = 0, size = 20,  filters = {}) => {
+export const findAllCategories = async () => {
     try {
         const token = localStorage.getItem('token');
 
-        const queryParams = new URLSearchParams({
-            page: page,
-            size: size,
-            ...filters
-        });
-
-        const response = await fetch(`${API_ENDPOINTS.EVENTS}/search?${queryParams.toString()}`, {
+        const response = await fetch(`${API_ENDPOINTS.CATEGORIES}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -26,7 +19,7 @@ export const findAllEvents = async (page = 0, size = 20,  filters = {}) => {
 
         return await response.json();
     } catch (error) {
-        console.error('Помилка запиту івентів:', error);
+        console.error('Помилка запиту категорій:', error);
         throw error;
     }
 };

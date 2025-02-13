@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useRef, useState} from "react";
 import { debounce } from 'lodash';
 import { useNavigate } from "react-router-dom";
 import { findAllEvents } from "../services/eventSerivce";
 import "../styles/style.scss";
-import PaginationComponent from "./PaginationComponent";
+import CategoriesSection from "../../../components/categoriesSection/components/CategoriesSection";
 
 const Events = () => {
     const navigate = useNavigate();
@@ -16,6 +16,8 @@ const Events = () => {
     const [endDate, setEndDate] = useState("");
     const [city, setCity] = useState("");
     const [onlyAvailable, setOnlyAvailable] = useState(false);
+    const [showCategories, setShowCategories] = useState(false);
+    const categoriesRef = useRef(null);
 
     useEffect(() => {
         const loadEvents = async () => {
@@ -23,8 +25,8 @@ const Events = () => {
                 const filters = {};
 
                 if (title) filters.title = title;
-                if (startDate) filters.startDate = startDate;
-                if (endDate) filters.endDate = endDate;
+                if (startDate) filters.startDate = startDate + "T00:00:00";
+                if (endDate) filters.endDate = endDate + "T23:59:00";
                 if (city) filters.city = city;
                 if (onlyAvailable) filters.onlyAvailable = onlyAvailable;
 
@@ -34,7 +36,7 @@ const Events = () => {
                     throw new Error("Дані про івенти відсутні");
                 }
 
-                setEvents(result.events);
+                setEvents(prevEvents => [...prevEvents, ...result.events]);
                 setHasNextPage(result.hasNextPage);
             } catch (error) {
                 setError(error.message);
@@ -57,12 +59,37 @@ const Events = () => {
     }, 500);
 
     const handleStartDateChange = (e) => {
-        setStartDate(e.target.value);
+        const date = e.target.value;
+        setStartDate(date);
     };
 
     const handleEndDateChange = (e) => {
-        setEndDate(e.target.value);
+        const date = e.target.value;
+        setEndDate(date);
     };
+
+    //categories
+    const handleToggleCategories = () => {
+        setShowCategories(!showCategories);
+    };
+
+    const handleClickOutside = (event) => {
+        if (showCategories && !event.target.closest('.categories-section')) {
+            setShowCategories(false);
+        }
+    };
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (categoriesRef.current && !categoriesRef.current.contains(event.target)) {
+                setShowCategories(false);
+            }
+        };
+        if (showCategories) {
+            document.addEventListener('mousedown', handleClickOutside);
+        }
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, [showCategories]);
 
     return (
         <section className="events">
@@ -100,6 +127,13 @@ const Events = () => {
                     <option value="true">Тільки доступні</option>
                     <option value="false">Всі</option>
                 </select>
+            </div>
+
+            <div className="events__categories" ref={categoriesRef}>
+                <button onClick={() => setShowCategories(!showCategories)} className="categories-button">
+                    Категорії
+                </button>
+                {showCategories && <CategoriesSection/>}
             </div>
 
             <div className="events__grid">
