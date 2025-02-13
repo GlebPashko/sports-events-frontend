@@ -5,6 +5,7 @@ import {findAllEvents} from "../services/eventSerivce";
 import "../styles/style.scss";
 import CategoriesButton from "../../../components/categoriesButton/components/CategoriesButton";
 import EventFilters from "../../../components/eventFilters/components/eventFilters";
+import EventsSection from "../../../components/events/components/EventsSection";
 
 const Events = () => {
     const navigate = useNavigate();
@@ -52,90 +53,56 @@ const Events = () => {
         loadEvents();
     }, [title, thisPage, startDate, endDate, city, onlyAvailable]);
 
-    // useEffect(() => {
-    //     const handleClickOutside = (event) => {
-    //         if (categoriesRef.current && !categoriesRef.current.contains(event.target)) {
-    //             setShowCategories(false);
-    //         }
-    //     };
-    //     if (showCategories) {
-    //         document.addEventListener('mousedown', handleClickOutside);
-    //     }
-    //     return () => document.removeEventListener('mousedown', handleClickOutside);
-    // }, [showCategories]);
-
     return (
-        <section className="events">
-            <h1 className="events__title">Всі івенти</h1>
-
-            <EventFilters
-                setTitle={setTitle}
-                setStartDate={setStartDate}
-                setEndDate={setEndDate}
-                setCity={setCity}
-                setOnlyAvailable={setOnlyAvailable}
-            />
-            {/*<div className="events__filters">*/}
-            {/*    <input*/}
-            {/*        type="text"*/}
-            {/*        placeholder="Пошук за назвою..."*/}
-            {/*        className="events__search"*/}
-            {/*        onChange={(e) => debouncedSearch(e.target.value)}*/}
-            {/*    />*/}
-
-            {/*    <input*/}
-            {/*        type="date"*/}
-            {/*        className="events__filter"*/}
-            {/*        value={startDate}*/}
-            {/*        onChange={handleStartDateChange}*/}
-            {/*    />*/}
-            {/*    <input*/}
-            {/*        type="date"*/}
-            {/*        className="events__filter"*/}
-            {/*        value={endDate}*/}
-            {/*        onChange={handleEndDateChange}*/}
-            {/*    />*/}
-
-            {/*    <select className="events__filter" value={city} onChange={(e) => debouncedCity(e.target.value)}>*/}
-            {/*        <option value="">Оберіть місто</option>*/}
-            {/*        <option value="Kyiv">Київ</option>*/}
-            {/*        <option value="Odesa">Одеса</option>*/}
-            {/*    </select>*/}
-
-            {/*    <select className="events__filter" value={onlyAvailable}*/}
-            {/*            onChange={(e) => debouncedOnlyAvailable(e.target.value)}>*/}
-            {/*        <option value="true">Тільки доступні</option>*/}
-            {/*        <option value="false">Всі</option>*/}
-            {/*    </select>*/}
-            {/*</div>*/}
-
-            <div className="categories-event-section" ref={categoriesRef}>
-                <CategoriesButton/>
-            </div>
-
-            <div className="events__grid">
-                {events.map((event) => (
-                    <div key={event.id} className="events__grid-cart">
-                        <img src={event.avatarImage} alt={event.title} className="events__grid-cart__image"/>
-                        <h3 className="events__grid-cart__title">
-                            <a href={`/event/${event.id}`}>{event.title}</a>
-                        </h3>
-                        <p className="events__grid-cart__date">Дата початку: {event.dateOfStartEvent}</p>
-                        <p className="events__grid-cart__price">Ціна: {event.price}</p>
-                    </div>
-                ))}
-            </div>
-
-            <section className="pagination">
-                {hasNextPage && (
-                    <button
-                        onClick={() => setThisPage(prevPage => prevPage + 1)}
-                        className="pagination__button">
-                        Показати ще
-                    </button>
-                )}
-            </section>
-        </section>
+        <EventsSection
+        events={events}
+        hasNextPage={hasNextPage}
+        setThisPage={setThisPage}
+        setTitle={setTitle}
+        setStartDate={setStartDate}
+        setEndDate={setEndDate}
+        setCity={setCity}
+        setOnlyAvailable={setOnlyAvailable}
+        setShowCategories={setShowCategories}
+        setError={setError}/>
+        // <section className="events">
+        //     <h1 className="events__title">Всі івенти</h1>
+        //
+        //     <EventFilters
+        //         setTitle={setTitle}
+        //         setStartDate={setStartDate}
+        //         setEndDate={setEndDate}
+        //         setCity={setCity}
+        //         setOnlyAvailable={setOnlyAvailable}
+        //     />
+        //
+        //     <div className="categories-event-section" ref={categoriesRef}>
+        //         <CategoriesButton/>
+        //     </div>
+        //
+        //     <div className="events__grid">
+        //         {events.map((event) => (
+        //             <div key={event.id} className="events__grid-cart">
+        //                 <img src={event.avatarImage} alt={event.title} className="events__grid-cart__image"/>
+        //                 <h3 className="events__grid-cart__title">
+        //                     <a href={`/event/${event.id}`}>{event.title}</a>
+        //                 </h3>
+        //                 <p className="events__grid-cart__date">Дата початку: {event.dateOfStartEvent}</p>
+        //                 <p className="events__grid-cart__price">Ціна: {event.price}</p>
+        //             </div>
+        //         ))}
+        //     </div>
+        //
+        //     <section className="pagination">
+        //         {hasNextPage && (
+        //             <button
+        //                 onClick={() => setThisPage(prevPage => prevPage + 1)}
+        //                 className="pagination__button">
+        //                 Показати ще
+        //             </button>
+        //         )}
+        //     </section>
+        // </section>
     );
 };
 
