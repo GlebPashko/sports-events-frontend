@@ -26,7 +26,7 @@ const EventsSection = ({events, hasNextPage, setThisPage, setTitle, setStartDate
                     <div key={event.id} className="events__grid-cart">
                         <img src={event.avatarImage} alt={event.title} className="events__grid-cart__image"/>
                         <h3 className="events__grid-cart__title">
-                            <a href={`/event/${event.id}`}>{event.title}</a>
+                            <a href={`/events/${event.id}`}>{event.title}</a>
                         </h3>
                         <p className="events__grid-cart__date">Дата початку: {event.dateOfStartEvent}</p>
                         <p className="events__grid-cart__price">Ціна: {event.price}</p>

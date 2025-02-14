@@ -4,6 +4,7 @@ import LoginPage from './pages/LoginPage';
 import RegistrationPage from './pages/RegistrationPage';
 import EventsPage from "./pages/EventsPage";
 import CategoryEventPage from "./pages/CategoryEventPage";
+import EventPage from "./pages/EventPage";
 
 function App() {
     return (
@@ -11,6 +12,7 @@ function App() {
             <Routes>
                 <Route path="/" element={<HomePage/>}/>
                 <Route path="/events" element={<EventsPage/>}/>
+                <Route path="/events/:eventId" element={<EventPage/>}/>
                 <Route path="/categories/:categoryId/events/search" element={<CategoryEventPage/>}/>
                 <Route path="/login" element={<LoginPage/>}/>
                 <Route path="/registration" element={<RegistrationPage/>}/>

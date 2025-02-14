@@ -30,3 +30,27 @@ export const findAllEvents = async (page = 0, size = 20,  filters = {}) => {
         throw error;
     }
 };
+
+export const findEventById = async (eventId) => {
+    try {
+        const token = localStorage.getItem('token');
+
+        const response = await fetch(`${API_ENDPOINTS.EVENTS}/${eventId}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || `Помилка отримання івентів: ${response.status}`);
+        }
+
+        return await response.json();
+    } catch (error) {
+        console.error('Помилка запиту івентів:', error);
+        throw error;
+    }
+};
