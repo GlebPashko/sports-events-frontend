@@ -1,0 +1,107 @@
+.event {
+  margin-top: 120px;
+  padding: 0 80px;
+
+  &__wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: start;
+  }
+
+  &__image-block {
+
+  }
+
+  &__main-image {
+    height: 600px;
+    width: 600px;
+    object-fit: cover;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  }
+
+  &__description-block {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  &__title {
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: #2ecc71;
+    }
+  }
+
+  &__descr-title {
+    margin-top: 35px;
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #34495e;
+  }
+
+  &__small-description,
+  &__date-start,
+  &__price,
+  &__max-participants,
+  &__city,
+  &__registration-avaliable-until {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #34495e;
+  }
+
+  &__add-toCard-button {
+    margin: 20px 0;
+    padding: 12px 24px;
+    font-size: 16px;
+    background-color: #2ecc71;
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 50%;
+
+    &:hover {
+      background-color: #27ae60;
+    }
+  }
+
+  &__full-description {
+    font-size: 16px;
+    color: #7f8c8d;
+    line-height: 1.6;
+    margin-top: 20px;
+  }
+
+  &__author,
+  &__registration,
+  &__created {
+    font-size: 14px;
+    color: #95a5a6;
+    margin-top: 10px;
+  }
+
+  &__video-title {
+    margin-top: 35px;
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #34495e;
+  }
+
+  &__video {
+    margin-top: 24px;
+    margin-bottom: 45px;
+
+    iframe {
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+  }
+}
