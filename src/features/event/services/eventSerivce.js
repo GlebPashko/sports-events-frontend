@@ -54,3 +54,27 @@ export const findEventById = async (eventId) => {
         throw error;
     }
 };
+
+export const deleteEventById = async (eventId) => {
+    try {
+        const token = localStorage.getItem('token');
+
+        const response = await fetch(`${API_ENDPOINTS.EVENTS}/${eventId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        if (response.status !== 204 ) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || `Помилка видалення івентів: ${response.status}`);
+            return false;
+        }
+
+        return true;
+    } catch (error) {
+        throw error;
+    }
+};

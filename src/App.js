@@ -7,6 +7,7 @@ import CategoryEventPage from "./pages/CategoryEventPage";
 import EventPage from "./pages/EventPage";
 import ShoppingCartPage from "./pages/ShoppingCartPage";
 import OrdersPage from "./pages/OrdersPage";
+import UserProfilePage from "./pages/UserProfilePage";
 
 function App() {
     return (
@@ -18,6 +19,7 @@ function App() {
                 <Route path="/categories/:categoryId/events/search" element={<CategoryEventPage/>}/>
                 <Route path="/cart" element={<ShoppingCartPage/>}/>
                 <Route path="/orders" element={<OrdersPage/>}/>
+                <Route path="/user/me" element={<UserProfilePage/>}/>
                 <Route path="/login" element={<LoginPage/>}/>
                 <Route path="/registration" element={<RegistrationPage/>}/>
             </Routes>

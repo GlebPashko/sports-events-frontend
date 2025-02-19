@@ -5,7 +5,7 @@ const API_BASE_URL = 'http://localhost:8080';
 
 export const API_ENDPOINTS = {
     AUTH: `${API_BASE_URL}/auth`,
-    USERS: `${API_BASE_URL}/users`,
+    USER: `${API_BASE_URL}/user`,
     CART: `${API_BASE_URL}/cart`,
     ORDERS: `${API_BASE_URL}/orders`,
     EVENTS: `${API_BASE_URL}/events`,
