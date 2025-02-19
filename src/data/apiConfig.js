@@ -9,7 +9,8 @@ export const API_ENDPOINTS = {
     CART: `${API_BASE_URL}/cart`,
     ORDERS: `${API_BASE_URL}/orders`,
     EVENTS: `${API_BASE_URL}/events`,
-    CATEGORIES: `${API_BASE_URL}/categories`
+    CATEGORIES: `${API_BASE_URL}/categories`,
+    PAYMENTS: `${API_BASE_URL}/payment`
 };
 
 export const USER_ROLES = {

@@ -5,6 +5,8 @@ import RegistrationPage from './pages/RegistrationPage';
 import EventsPage from "./pages/EventsPage";
 import CategoryEventPage from "./pages/CategoryEventPage";
 import EventPage from "./pages/EventPage";
+import ShoppingCartPage from "./pages/ShoppingCartPage";
+import OrdersPage from "./pages/OrdersPage";
 
 function App() {
     return (
@@ -14,6 +16,8 @@ function App() {
                 <Route path="/events" element={<EventsPage/>}/>
                 <Route path="/events/:eventId" element={<EventPage/>}/>
                 <Route path="/categories/:categoryId/events/search" element={<CategoryEventPage/>}/>
+                <Route path="/cart" element={<ShoppingCartPage/>}/>
+                <Route path="/orders" element={<OrdersPage/>}/>
                 <Route path="/login" element={<LoginPage/>}/>
                 <Route path="/registration" element={<RegistrationPage/>}/>
             </Routes>

@@ -10,6 +10,8 @@ const Menu = () => {
                         <li><Link className="menu__link" to="/">Головна</Link></li>
                         <li><Link className="menu__link" to="/registration">Зареєструватися</Link></li>
                         <li><Link className="menu__link" to="/events">Івенти</Link></li>
+                        <li><Link className="menu__link" to="/cart">Кошик</Link></li>
+                        <li><Link className="menu__link" to="/orders">Квитки</Link></li>
                         <li><Link className="menu__link" to="/login">Авторизація</Link></li>
                     </ul>
                 </nav>

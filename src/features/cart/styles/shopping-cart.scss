@@ -1,0 +1,127 @@
+
+.shopping-cart {
+  margin-top: 75px;
+  padding: 20px;
+
+  &__title {
+    font-size: 52px;
+    font-weight: bold;
+    margin-bottom: 25px;
+    text-align: center;
+    color: #2c3e50;
+  }
+
+  &__empty {
+    font-size: 23px;
+    font-weight: normal;
+    margin-bottom: 25px;
+    text-align: center;
+    color: #2c3e50;
+  }
+}
+
+.shopping-cart__wrapper {
+  display: grid;
+  grid-template-columns: 100px 1fr 50px;
+  gap: 20px;
+  padding: 15px;
+  border-radius: 10px;
+  border: 1px solid #d6d5d5;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease-in-out;
+
+  &__image-block {
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ecf0f1;
+    border-radius: 8px;
+
+    .image-block__img {
+      width: 90px;
+      height: 90px;
+      object-fit: cover;
+      border-radius: 6px;
+    }
+  }
+
+  &__info-block {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    .info-block__title {
+      font-size: 22px;
+      font-weight: 600;
+      color: #2c3e50;
+      cursor: pointer;
+      transition: color 0.3s;
+
+      &:hover {
+        color: #3498db;
+      }
+    }
+  }
+
+  &__remove-block {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    gap: 8px;
+
+
+    .remove-block__button {
+      background-color: transparent;
+      border: 1px solid red;
+      color: red;
+      font-size: 16px;
+      cursor: pointer;
+      width: 50px;
+      height: 50px;
+      padding: 5px;
+      border-radius: 50%;
+      transition: 0.3s ease;
+
+      &:hover {
+        background-color: red;
+        color: white;
+      }
+    }
+  }
+}
+
+.shopping-cart__address-input {
+  margin-top: 25px;
+  padding: 10px;
+  margin-bottom: 15px;
+  width: 100%;
+  font-size: 16px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+}
+
+.shopping-cart__do-order {
+  padding: 12px 24px;
+  background-color: #4caf50;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #45a049;
+  }
+}
+
+.shopping-cart__message {
+  margin-top: 15px;
+  font-size: 16px;
+  color: #2ecc71;
+}
+
+

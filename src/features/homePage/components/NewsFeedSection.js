@@ -24,7 +24,7 @@ const VideoSection = () => {
         };
 
         loadEvents();
-    }, );
+    }, []);
 
     return (
         <section className="news-feed">
