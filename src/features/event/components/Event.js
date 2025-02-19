@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
 import {findAllEvents, findEventById} from "../services/eventSerivce";
 import {useParams} from "react-router-dom";
+import AddToCartButton from "../../../components/addToCartButton/components/addToCartButton";
 
 
 const Event = () => {
@@ -14,7 +15,6 @@ const Event = () => {
             try {
 
                 const result = await findEventById(eventId);
-                console.log(result);
                 setEvent(result);
 
                 if (!result || !result.events) {
@@ -53,7 +53,7 @@ const Event = () => {
                     <p className="event__city">Місто: {event.city}</p>
                     <p className="event__registration-avaliable-until">Реєстрація доступна
                         до: {event.registrationAvailableUntil}</p>
-                    <button className="event__add-toCard-button">Додати квиток в кошик</button>
+                    <AddToCartButton eventId={event.id} />
                 </div>
             </div>
 

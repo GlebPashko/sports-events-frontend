@@ -1,0 +1,127 @@
+.orders {
+  margin-top: 80px;
+  padding: 20px;
+
+  &__title {
+    font-size: 42px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 30px;
+    color: #2c3e50;
+  }
+
+  &__error {
+    color: #e74c3c;
+    font-size: 18px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  &__payment-first-button {
+    margin-top: 10px;
+    background-color: #fff;
+    color: #333;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 12px 24px;
+    border-radius: 30px; // Скруглені кути
+    border: 2px solid #ccc; // Світло-сіра рамка
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #f0f0f0;
+      border-color: #bbb;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    &:active {
+      background-color: #e0e0e0;
+      border-color: #aaa;
+    }
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(204, 204, 204, 0.5);
+    }
+  }
+}
+
+.order-card {
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background-color: #ffffff;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+  }
+
+  &__id {
+    font-size: 20px;
+    font-weight: bold;
+    color: #34495e;
+  }
+
+  &__date,
+  &__status,
+  &__total {
+    font-size: 16px;
+    color: #7f8c8d;
+    margin-bottom: 5px;
+  }
+
+  &__total {
+    font-weight: bold;
+    color: #2ecc71;
+  }
+}
+
+.order-card__items {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 15px;
+
+  &__order-item {
+    display: flex;
+    align-items: center;
+    border: 1px solid #dcdcdc;
+    border-radius: 8px;
+    padding: 10px;
+    background-color: #f9f9f9;
+  }
+
+  &__image {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-right: 15px;
+  }
+
+  &__info {
+    font-size: 14px;
+
+    h4 {
+      font-size: 16px;
+      font-weight: bold;
+      color: #2c3e50;
+    }
+
+    p {
+      font-size: 13px;
+      color: #7f8c8d;
+      margin: 2px 0;
+    }
+  }
+}
