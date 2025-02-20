@@ -3,6 +3,9 @@ import {findAllCategories} from "../../../components/categoriesSection/services/
 import {value} from "lodash/seq";
 
 const CreateEventForm = ({ onCreate }) => {
+    const [selectedCategories, setSelectedCategories] = useState([]);
+    const [isOpen, setIsOpen] = useState(false);
+    const [categories, setCategories] = useState([]);
     const [eventData, setEventData] = useState({
         title: "",
         descriptionSmall: "",
@@ -16,13 +19,6 @@ const CreateEventForm = ({ onCreate }) => {
         city: "",
         registrationAvailableUntil: "",
         categoryIds: "",
-    });
-
-    const [selectedCategories, setSelectedCategories] = useState([]);
-    const [isOpen, setIsOpen] = useState(false);
-    const [categories, setCategories] = useState([]);
-    const [formData, setFormData] = useState({
-        city: "",
     });
 
     const handleChange = (e) => {
@@ -58,15 +54,6 @@ const CreateEventForm = ({ onCreate }) => {
         onCreate(formattedEvent);
     };
 
-    const getCategories = async () => {
-        try {
-            const result = await findAllCategories();
-            setCategories(result);
-        } catch (error) {
-            console.error("Помилка отримання категорій:", error);
-        }
-    };
-
     const handleDropdownClick = async () => {
         try {
             const result = await findAllCategories();
@@ -93,7 +80,7 @@ const CreateEventForm = ({ onCreate }) => {
             <input type="datetime-local" name="dateOfStartEvent" placeholder="Дата початку" onChange={handleChange}
                    required title="Дата та час початку події" aria-label="Дата та час початку події"/>
             <input type="number" name="price" placeholder="Ціна (грн)" onChange={handleChange} required/>
-            <select name="city" className="events__filter" value={formData.city} onChange={handleChange}>
+            <select name="city" className="events__filter" value={eventData.city} onChange={handleChange}>
                 <option value="">Оберіть місто</option>
                 <option value="Kyiv">Київ</option>
                 <option value="Odesa">Одеса</option>
