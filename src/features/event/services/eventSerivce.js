@@ -78,3 +78,27 @@ export const deleteEventById = async (eventId) => {
         throw error;
     }
 };
+
+export const createEvent = async (eventData) => {
+    try {
+        const token = localStorage.getItem("token");
+        const response = await fetch(API_ENDPOINTS.EVENTS, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`,
+            },
+            body: JSON.stringify(eventData),
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || `Помилка створення івенту: ${response.status}`);
+        }
+
+        return await response.json();
+    } catch (error) {
+        console.error("Помилка створення івенту:", error);
+        throw error;
+    }
+};

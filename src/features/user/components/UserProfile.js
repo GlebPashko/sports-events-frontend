@@ -2,7 +2,8 @@ import {useEffect, useState} from "react";
 import {findUsersProfile, checkIsAdmin, checkIsOrganizer} from "../services/userService";
 import {useNavigate} from "react-router-dom";
 import "../styles/styles.scss"
-import {deleteEventById} from "../../event/services/eventSerivce";
+import {createEvent, deleteEventById} from "../../event/services/eventSerivce";
+import CreateEventForm from "../../event/components/CreateEventForm";
 
 const UserProfile = () => {
     const [error, setError] = useState(null);
@@ -10,6 +11,8 @@ const UserProfile = () => {
     const [isOrganizerField, setIsOrganizerField] = useState(false);
     const [isAdminField, setIsAdminField] = useState(false);
     const [eventId, setEventId] = useState("");
+    const [isOpenCreateEventForm, setIsOpenCreateEventForm] = useState(false);
+
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -62,7 +65,8 @@ const UserProfile = () => {
             <h2 className="user-profile__title">Профіль користувача</h2>
             <div className="user-profile__info">
                 <p className="user-profile__id">🔹 Унікальний ID: {user.id}</p>
-                <p className="user-profile__created-at">📅 Профіль створено: {new Date(user.createdAt).toLocaleDateString()}</p>
+                <p className="user-profile__created-at">📅 Профіль
+                    створено: {new Date(user.createdAt).toLocaleDateString()}</p>
                 <p className="user-profile__first-name">👤 Ім'я: {user.firstName}</p>
                 <p className="user-profile__last-name">📛 Прізвище: {user.lastName}</p>
                 <p className="user-profile__city">🌆 Місто: {user.city}</p>
@@ -79,7 +83,34 @@ const UserProfile = () => {
                 <button className="user-profile__button" onClick={() => navigate("/orders")}>
                     🎟 Перейти до квитків
                 </button>
+
+                <div>
+                    {isOrganizerField && (
+                        <div>
+                            <button
+                                className="user-profile__button"
+                                onClick={() => setIsOpenCreateEventForm(!isOpenCreateEventForm)}
+                            >
+                                {isOpenCreateEventForm ? "❌ Закрити форму" : "➕ Створити івент"}
+                            </button>
+
+                            {isOpenCreateEventForm && isOrganizerField && (
+                                <CreateEventForm onCreate={async (eventData) => {
+                                    console.log("Відправка на сервер:", eventData);
+                                    try {
+                                        const newEvent = await createEvent(eventData);
+                                        alert("Івент створено успішно!");
+                                        setIsOpenCreateEventForm(false);
+                                    } catch (error) {
+                                        alert("Помилка при створенні івенту!");
+                                    }
+                                }}/>
+                            )}
+                        </div>
+                    )}
+                </div>
             </div>
+
 
             {isAdminField && (
                 <div className="delete-event-form">
