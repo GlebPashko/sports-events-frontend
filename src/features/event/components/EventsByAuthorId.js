@@ -1,16 +1,14 @@
 import React, {useEffect, useRef, useState} from "react";
 import {debounce} from 'lodash';
 import {useNavigate, useParams} from "react-router-dom";
-import {findAllEvents} from "../services/eventSerivce";
+import {findAllEvents, findAllEventsByAuthorId} from "../services/eventSerivce";
 import "../styles/style.scss";
 import CategoriesButton from "../../../components/categoriesButton/components/CategoriesButton";
 import EventFilters from "../../../components/eventFilters/components/eventFilters";
-import {findAllEventsByCategoryId} from "../services/category-eventsSerivice";
 import EventsSection from "../../../components/events/components/EventsSection";
 
-const CategoryEvents = () => {
+const EventsByAuthorId = () => {
     const { authorId } = useParams();
-    const { categoryId } = useParams();
     const navigate = useNavigate();
     const [events, setEvents] = useState([]);
     const [thisPage, setThisPage] = useState(0);
@@ -37,7 +35,7 @@ const CategoryEvents = () => {
                 if (authorId) filters.author = authorId;
                 if (onlyAvailable) filters.onlyAvailable = onlyAvailable;
 
-                const result = await findAllEventsByCategoryId(categoryId, thisPage, 20, filters);
+                const result = await findAllEventsByAuthorId(authorId, thisPage, 20, filters);
 
                 if (!result || !result.events) {
                     throw new Error("Дані про івенти відсутні");
@@ -56,7 +54,7 @@ const CategoryEvents = () => {
         };
 
         loadEvents();
-    }, [categoryId, title, thisPage, startDate, endDate, city, onlyAvailable]);
+    }, [title, thisPage, startDate, endDate, city, authorId, onlyAvailable]);
 
     return (
         <EventsSection
@@ -67,10 +65,11 @@ const CategoryEvents = () => {
             setStartDate={setStartDate}
             setEndDate={setEndDate}
             setCity={setCity}
+            setAuthor={setAuthor}
             setOnlyAvailable={setOnlyAvailable}
             setShowCategories={setShowCategories}
             setError={setError}/>
     );
 };
 
-export default CategoryEvents;
+export default EventsByAuthorId;

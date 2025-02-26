@@ -84,6 +84,13 @@ const UserProfile = () => {
                     🎟 Перейти до квитків
                 </button>
 
+                {isOrganizerField && (
+                    <button className="user-profile__button" onClick={() => navigate(`/events/author/${user.id}`)}>
+                        🎟 Перейти до подій організатора
+                    </button>
+                )}
+
+
                 <div>
                     {isOrganizerField && (
                         <div>
