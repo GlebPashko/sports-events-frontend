@@ -1,6 +1,6 @@
 import React from 'react';
 
-const EventFilters = ({ setTitle, setStartDate, setEndDate, setCity, setOnlyAvailable }) => {
+const EventFilters = ({ setTitle, setStartDate, setEndDate, setCity, setAuthor, setOnlyAvailable }) => {
     return (
         <div className="events__filters">
             <input

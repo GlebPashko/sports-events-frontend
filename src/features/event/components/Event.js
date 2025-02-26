@@ -1,20 +1,28 @@
 import {useEffect, useState} from "react";
-import {findAllEvents, findEventById} from "../services/eventSerivce";
-import {useParams} from "react-router-dom";
+import {createEvent, deleteEventById, findAllEvents, findEventById, updateEvent} from "../services/eventSerivce";
+import {useNavigate, useParams} from "react-router-dom";
 import AddToCartButton from "../../../components/addToCartButton/components/addToCartButton";
+import {checkIsAdmin, checkIsOrganizer} from "../../user/services/userService";
+import CreateEventForm from "./CreateEventForm";
+import UpdateEventForm from "./UpdateEventForm";
 
 
 const Event = () => {
+    const navigate = useNavigate();
     const { eventId } = useParams();
     const [error, setError] = useState(null);
     const [event, setEvent] = useState();
-
+    const [isOrganizerField, setIsOrganizerField] = useState(false);
+    const [isAdminField, setIsAdminField] = useState(false);
+    const [isOpenCreateEventForm, setIsOpenCreateEventForm] = useState(false);
 
     useEffect(() => {
         const loadEvent = async () => {
             try {
 
                 const result = await findEventById(eventId);
+                setIsOrganizerField(checkIsOrganizer());
+                setIsAdminField(checkIsAdmin());
                 setEvent(result);
 
                 if (!result || !result.events) {
@@ -28,6 +36,26 @@ const Event = () => {
 
         loadEvent();
     }, [eventId]);
+
+    const handleDeleteEvent = async (id) => {
+        if (!id) {
+            alert("Будь ласка, введіть ID події");
+            return;
+        }
+
+        const confirmDelete = window.confirm(`Ви впевнені, що хочете видалити подію з ID ${id}?`);
+        if (!confirmDelete) return;
+
+        try {
+            var result = await deleteEventById(id);
+            if (result) {
+                alert('Подія успішно видалена')
+                navigate("/events");
+            }
+        } catch (error) {
+            alert(`Помилка видалення події: ${error.message}`);
+        }
+    };
 
     if (!event) {
         return <p>Завантаження...</p>;
@@ -75,6 +103,42 @@ const Event = () => {
                     referrerPolicy="strict-origin-when-cross-origin" allowFullScreen>
                 </iframe>
             </div>
+
+            {(isOrganizerField || isAdminField) && (
+                <button
+                    className="delete-event-form__button"
+                    onClick={() => handleDeleteEvent(eventId)}
+                >
+                    Видалити подію
+                </button>
+            )}
+
+            {isOrganizerField && (
+                <div>
+                    <button
+                        className="event__update-event-form__button"
+                        onClick={() => setIsOpenCreateEventForm(!isOpenCreateEventForm)}
+                    >
+                        {isOpenCreateEventForm ? "❌ Закрити форму" : "➕ Відредагувати івент"}
+                    </button>
+
+                    {isOpenCreateEventForm && isOrganizerField && (
+                        <UpdateEventForm onCreate={async (eventData) => {
+                            console.log("Відправка на сервер:", eventData);
+                            try {
+                                const newEvent = await updateEvent(eventData, eventId);
+                                alert("Івент відредаговано успішно!");
+                                navigate(0);
+                                setIsOpenCreateEventForm(false);
+                            } catch (error) {
+                                alert("Помилка при редагувані івенту!");
+                            }
+                        }}/>
+                    )}
+                </div>
+            )}
+
+
         </section>
     );
 

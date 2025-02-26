@@ -2,7 +2,7 @@ import React, {useRef} from "react";
 import CategoriesButton from "../../categoriesButton/components/CategoriesButton";
 import EventFilters from "../../eventFilters/components/eventFilters";
 
-const EventsSection = ({events, hasNextPage, setThisPage, setTitle, setStartDate, setEndDate, setCity, setOnlyAvailable }) => {
+const EventsSection = ({events, hasNextPage, setThisPage, setTitle, setStartDate, setEndDate, setCity, setAuthor, setOnlyAvailable }) => {
     const categoriesRef = useRef(null);
 
     return (
@@ -14,6 +14,7 @@ const EventsSection = ({events, hasNextPage, setThisPage, setTitle, setStartDate
                 setStartDate={setStartDate}
                 setEndDate={setEndDate}
                 setCity={setCity}
+                setAuthor={setAuthor}
                 setOnlyAvailable={setOnlyAvailable}
             />
 

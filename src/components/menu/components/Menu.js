@@ -12,6 +12,7 @@ const Menu = () => {
                         <li><Link className="menu__link" to="/events">Івенти</Link></li>
                         <li><Link className="menu__link" to="/cart">Кошик</Link></li>
                         <li><Link className="menu__link" to="/orders">Квитки</Link></li>
+                        <li><Link className="menu__link" to="/user/me">Кабінет</Link></li>
                         <li><Link className="menu__link" to="/login">Авторизація</Link></li>
                     </ul>
                 </nav>

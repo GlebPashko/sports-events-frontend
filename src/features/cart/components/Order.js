@@ -3,8 +3,10 @@ import {findAllOrders, getOrders} from '../services/orderService';
 import '../styles/ style.scss';
 import {doPayment} from "../services/paymentService";
 import Payment from "./Payment";
+import {useNavigate} from "react-router-dom";
 
 const Orders = () => {
+    const navigate = useNavigate();
     const [orders, setOrders] = useState([]);
     const [error, setError] = useState(null);
     const [paymentVisible, setPaymentVisible] = useState(null);
@@ -34,7 +36,7 @@ const Orders = () => {
                 {orders.map(order => (
                     <div key={order.id} className="order-card">
                         <h3 className="order-card__id">Квиток #{order.id}</h3>
-                        <p className="order-card__date">Дата: {new Date(order.orderDate).toLocaleString()}</p>
+                        <p className="order-card__date">Дата купівлі: {new Date(order.orderDate).toLocaleString()}</p>
                         <p className="order-card__status">Статус: {order.status}</p>
                         <p className="order-card__total">Загальна сума: {order.total} грн</p>
                         <div className="order-card__items">
@@ -43,10 +45,15 @@ const Orders = () => {
                                     <img src={item.avatarImage} alt={item.eventTitle}
                                          className="order-card__items__image"/>
                                     <div className="order-card__items__info">
-                                        <h4>{item.eventTitle}</h4>
+                                        <h4 onClick={() => navigate(`/events/${item.id}`)}>
+                                            {item.eventTitle}
+                                        </h4>
                                         <p>{item.descriptionSmall}</p>
                                         <p>Ціна: {item.price} грн</p>
                                         <p>Кількість: {item.quantity}</p>
+                                        <p className="order-card__date">
+                                            Дата початку події: {new Date(item.dateOfStartEvent).toLocaleString()}
+                                        </p>
                                     </div>
                                 </div>
                             ))}
