@@ -5,13 +5,16 @@ import AddToCartButton from "../../../components/addToCartButton/components/addT
 import {checkIsAdmin, checkIsOrganizer} from "../../user/services/userService";
 import CreateEventForm from "./CreateEventForm";
 import UpdateEventForm from "./UpdateEventForm";
+import {findAllParticipantForEvent} from "../services/participantService";
 
 
 const Event = () => {
     const navigate = useNavigate();
-    const { eventId } = useParams();
+    const {eventId} = useParams();
     const [error, setError] = useState(null);
     const [event, setEvent] = useState();
+    const [participants, setParticipants] = useState([]);
+    const [showParticipants, setShowParticipants] = useState(false);
     const [isOrganizerField, setIsOrganizerField] = useState(false);
     const [isAdminField, setIsAdminField] = useState(false);
     const [isOpenCreateEventForm, setIsOpenCreateEventForm] = useState(false);
@@ -57,6 +60,17 @@ const Event = () => {
         }
     };
 
+    const handleFindParticipantForEvent = async (id) => {
+        try {
+            const result = await findAllParticipantForEvent(id);
+
+            setParticipants(result);
+            setShowParticipants(true);
+        } catch (error) {
+            alert(`Помилка отримання списку учасників: ${error.message}`);
+        }
+    };
+
     if (!event) {
         return <p>Завантаження...</p>;
     }
@@ -81,7 +95,7 @@ const Event = () => {
                     <p className="event__city">Місто: {event.city}</p>
                     <p className="event__registration-avaliable-until">Реєстрація доступна
                         до: {event.registrationAvailableUntil}</p>
-                    <AddToCartButton eventId={event.id} />
+                    <AddToCartButton eventId={event.id}/>
                 </div>
             </div>
 
@@ -136,6 +150,41 @@ const Event = () => {
                         }}/>
                     )}
                 </div>
+            )}
+
+            {(isOrganizerField || isAdminField) && (
+                <>
+                    <button
+                        className="event__update-event-form__button"
+                        onClick={() => handleFindParticipantForEvent(eventId)}
+                    >
+                        Переглянути список відвідувачів
+                    </button>
+
+                    {showParticipants && (
+                        <div className="participants-list">
+                            <h3>Список учасників</h3>
+
+                            {participants.length === 0 ? (
+                                <p>Немає зареєстрованих учасників</p>
+                            ) : (
+                                <ul>
+                                    {participants.map((participant) => (
+                                        <li key={participant.id}>
+                                            <div>Ім'я: {participant.userFirstName}</div>
+                                            <div>Фамілія: {participant.userLastName}</div>
+                                            <div>Пошта: {participant.userEmail}</div>
+                                            <div>Кількість куплених місць: {participant.quantity}</div>
+                                            <div>------------------</div>
+                                        </li>
+                                    ))}
+                                </ul>
+                            )}
+
+                            <button className="delete-event-form__button" onClick={() => setShowParticipants(false)}>Закрити</button>
+                        </div>
+                    )}
+                </>
             )}
 
 
