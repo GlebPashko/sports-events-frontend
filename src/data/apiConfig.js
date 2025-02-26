@@ -9,6 +9,7 @@ export const API_ENDPOINTS = {
     CART: `${API_BASE_URL}/cart`,
     ORDERS: `${API_BASE_URL}/orders`,
     EVENTS: `${API_BASE_URL}/events`,
+    PARTICIPANT: `${API_BASE_URL}/participant`,
     CATEGORIES: `${API_BASE_URL}/categories`,
     PAYMENTS: `${API_BASE_URL}/payment`
 };
