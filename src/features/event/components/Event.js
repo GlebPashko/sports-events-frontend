@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {createEvent, deleteEventById, findAllEvents, findEventById, updateEvent} from "../services/eventSerivce";
 import {useNavigate, useParams} from "react-router-dom";
 import AddToCartButton from "../../../components/addToCartButton/components/addToCartButton";
@@ -6,6 +6,7 @@ import {checkIsAdmin, checkIsOrganizer} from "../../user/services/userService";
 import CreateEventForm from "./CreateEventForm";
 import UpdateEventForm from "./UpdateEventForm";
 import {findAllParticipantForEvent} from "../services/participantService";
+import MapComponent from "../../../components/map/components/MapComponent";
 
 
 const Event = () => {
@@ -13,6 +14,7 @@ const Event = () => {
     const {eventId} = useParams();
     const [error, setError] = useState(null);
     const [event, setEvent] = useState();
+    const mapRef = useRef(null);
     const [participants, setParticipants] = useState([]);
     const [showParticipants, setShowParticipants] = useState(false);
     const [isOrganizerField, setIsOrganizerField] = useState(false);
@@ -88,28 +90,41 @@ const Event = () => {
                 <div className="event__description-block">
                     <h1 className="event__title">{event.title}</h1>
                     <p className="event__small-description">{event.descriptionSmall}</p>
-                    <p className="event__date-start">Дата початку: {event.dateOfStartEvent}</p>
+                    <p className="event__date-start">Дата
+                        початку: {new Date(event.dateOfStartEvent).toLocaleString()}</p>
                     <p className="event__price">Ціна: {event.price} грн</p>
                     <p className="event__max-participants">Максимальна кількість
                         учасників: {event.maximumParticipants}</p>
                     <p className="event__city">Місто: {event.city}</p>
                     <p className="event__registration-avaliable-until">Реєстрація доступна
-                        до: {event.registrationAvailableUntil}</p>
+                        до: {new Date(event.registrationAvailableUntil).toLocaleString()}</p>
                     <AddToCartButton eventId={event.id}/>
                 </div>
             </div>
 
-            <div className="event__descr-title">Детальний опис</div>
-            <p className="event__full-description">{event.descriptionFull}</p>
-            <p className="event__author">ID автора: {event.authorId}</p>
-            <p className="event__registration">Реєстрація доступна до: {event.registrationAvailableUntil}</p>
-            <p className="event__created">Створено: {event.createdAt}</p>
+
+            <h2 className="event_title">Мапа та опис</h2>
+            <div className="event_descr-wrapper">
+                <div className="event_descr-wrapper__map-block">
+                    <MapComponent coordinates={event.google_map_coordinates}/>
+                </div>
+
+                <div className="event_descr-wrapper__text-block">
+                    <div className="event__descr-title">Детальний опис</div>
+                    <p className="event__full-description">{event.descriptionFull}</p>
+                    <p className="event__author">ID автора: {event.authorId}</p>
+                    <p className="event__registration">Реєстрація доступна
+                        до: {new Date(event.registrationAvailableUntil).toLocaleString()}</p>
+                    <p className="event__created">Створено: {new Date(event.createdAt).toLocaleString()}</p>
+
+                </div>
+            </div>
 
             <div className="event__video-title">Відео огляд про івент</div>
             <div className="event__video">
                 <iframe
-                    width="560"
-                    height="315"
+                    width="70%"
+                    height="500px"
                     src={event.videoLink}
                     title="YouTube video player"
                     frameBorder="0"
@@ -181,7 +196,9 @@ const Event = () => {
                                 </ul>
                             )}
 
-                            <button className="delete-event-form__button" onClick={() => setShowParticipants(false)}>Закрити</button>
+                            <button className="delete-event-form__button"
+                                    onClick={() => setShowParticipants(false)}>Закрити
+                            </button>
                         </div>
                     )}
                 </>

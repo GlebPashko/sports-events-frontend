@@ -29,7 +29,7 @@ const EventsSection = ({events, hasNextPage, setThisPage, setTitle, setStartDate
                         <h3 className="events__grid-cart__title">
                             <a href={`/events/${event.id}`}>{event.title}</a>
                         </h3>
-                        <p className="events__grid-cart__date">Дата початку: {event.dateOfStartEvent}</p>
+                        <p className="events__grid-cart__date">Дата початку: {new Date(event.dateOfStartEvent).toLocaleString()}</p>
                         <p className="events__grid-cart__price">Ціна: {event.price}</p>
                     </div>
                 ))}

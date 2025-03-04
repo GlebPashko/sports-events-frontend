@@ -10,6 +10,7 @@ import OrdersPage from "./pages/OrdersPage";
 import UserProfilePage from "./pages/UserProfilePage";
 import EventsByAuthorIdPage from "./pages/EventsByAuthorIdPage";
 import AboutUsPage from "./pages/informPages/AboutUsPage";
+import ContactsPage from "./pages/informPages/ContactsPage";
 
 function App() {
     return (
@@ -27,6 +28,7 @@ function App() {
                 <Route path="/login" element={<LoginPage/>}/>
                 <Route path="/registration" element={<RegistrationPage/>}/>
                 <Route path="/about-us" element={<AboutUsPage/>}/>
+                <Route path="/contacts" element={<ContactsPage/>}/>
             </Routes>
         </Router>
     );

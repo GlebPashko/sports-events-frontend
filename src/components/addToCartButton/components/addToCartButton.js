@@ -25,8 +25,12 @@ const AddToCartButton = ({ eventId }) => {
 
             console.log(response);
 
+            if (response.status === 401) {
+                throw new Error('Вам потрібно авторизуватися');
+            }
+
             if (!response.ok) {
-                throw new Error('Не вдалося додати до кошика');
+                throw new Error('Виникла помилка при додавані до кошика');
             }
 
             setMessage('Квиток успішно додано до кошика');

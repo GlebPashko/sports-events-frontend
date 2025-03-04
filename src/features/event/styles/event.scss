@@ -15,7 +15,7 @@
 
   &__wrapper {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 600px 1fr;
     gap: 40px;
     align-items: start;
   }
@@ -160,5 +160,23 @@
     &:hover {
       background: #c0392b;
     }
+  }
+}
+
+.event_descr-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+
+.event_title {
+  text-align: center;
+  margin: 31px;
+  font-size: 36px;
+  font-weight: bold;
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: #2ecc71;
   }
 }
