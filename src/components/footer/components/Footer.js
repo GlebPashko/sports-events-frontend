@@ -1,5 +1,6 @@
 import React from "react";
-import "../styles/style.scss"; // Підключаємо стилі
+import "../styles/style.scss";
+import {Link} from "react-router-dom"; // Підключаємо стилі
 
 const Footer = () => {
     return (
@@ -7,10 +8,8 @@ const Footer = () => {
             <div className="footer__content">
                 <p className="footer__text">© {new Date().getFullYear()} Event Project. Всі права захищені.</p>
                 <ul className="footer__links">
-                    <li><a href="/about-us">Про нас</a></li>
-                    <li><a href="/">Контакти</a></li>
-                    <li><a href="/">Політика конфіденційності</a></li>
-                    <li><a href="/">Мапа сайту</a></li>
+                    <li><Link to="/about-us">Про нас</Link></li>
+                    <li><Link to="/contacts">Контакти</Link></li>
                 </ul>
             </div>
         </footer>

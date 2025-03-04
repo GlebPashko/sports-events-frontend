@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {findAllCategories} from "../../../components/categoriesSection/services/categories-sectionService";
 import {value} from "lodash/seq";
 
-const CreateEventForm = ({ onCreate }) => {
+const CreateEventForm = ({onCreate}) => {
     const [selectedCategories, setSelectedCategories] = useState([]);
     const [isOpen, setIsOpen] = useState(false);
     const [categories, setCategories] = useState([]);
+    const mapRef = useRef(null);
+    const markerRef = useRef(null);
     const [eventData, setEventData] = useState({
         title: "",
         descriptionSmall: "",
@@ -17,12 +19,13 @@ const CreateEventForm = ({ onCreate }) => {
         dateOfStartEvent: "",
         price: "",
         city: "",
+        google_map_coordinates: "",
         registrationAvailableUntil: "",
         categoryIds: "",
     });
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
+        const {name, value} = e.target;
         setEventData((prev) => ({
             ...prev,
             [name]: value,
@@ -30,7 +33,7 @@ const CreateEventForm = ({ onCreate }) => {
     };
 
     const handleCheckboxChange = (event) => {
-        const { value, checked } = event.target;
+        const {value, checked} = event.target;
 
         setSelectedCategories(prevCategories =>
             checked
@@ -63,6 +66,35 @@ const CreateEventForm = ({ onCreate }) => {
             console.error("Помилка отримання категорій:", error);
         }
     };
+
+    // google map
+    useEffect(() => {
+        if (!window.google) return;
+
+        const map = new window.google.maps.Map(mapRef.current, {
+            center: { lat: 46.477991, lng: 30.74297 }, // Odesa
+            zoom: 14,
+        });
+
+        map.addListener("click", (event) => {
+            const lat = event.latLng.lat();
+            const lng = event.latLng.lng();
+
+            setEventData((prev) => ({
+                ...prev,
+                google_map_coordinates: `${lat},${lng}`,
+            }));
+
+            if (markerRef.current) {
+                markerRef.current.setMap(null);
+            }
+
+            markerRef.current = new window.google.maps.Marker({
+                position: { lat, lng },
+                map: map,
+            });
+        });
+    }, []);
 
     return (
         <form className="create-event-form" onSubmit={handleSubmit}>
@@ -112,6 +144,10 @@ const CreateEventForm = ({ onCreate }) => {
                 )}
             </div>
 
+            <div>
+                <div ref={mapRef} style={{width: "100%", height: "500px"}}/>
+                <p>📍 Координати: {eventData.google_map_coordinates || "Натисніть на карту"}</p>
+            </div>
 
             <button
                 type="submit"

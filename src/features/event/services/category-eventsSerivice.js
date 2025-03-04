@@ -14,7 +14,6 @@ export const findAllEventsByCategoryId = async (categoryId, page = 0, size = 20,
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
             }
         });
 

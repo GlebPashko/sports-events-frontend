@@ -10,7 +10,7 @@ const MainBanner = ({eventCount}) => {
             <div className="container">
                 <div className="main-banner__content">
                     <h1 className="main-banner__title">Переглядай найпопулярніші івенти прямо зараз!</h1>
-                    <div className="main-banner__text">На наступний тиждень доступно <strong>N</strong> подій.</div>
+                    <div className="main-banner__text">Ми впенвені, ти знайдеш щось для себе.</div>
                     <div className="main-banner__buttons">
                         <button className="main-banner__btn" onClick={() => navigate('/events')}>
                             Почати перегляд

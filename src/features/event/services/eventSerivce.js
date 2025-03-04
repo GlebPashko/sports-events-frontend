@@ -15,7 +15,6 @@ export const findAllEvents = async (page = 0, size = 20,  filters = {}) => {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
             }
         });
 
@@ -47,7 +46,6 @@ export const findAllEventsByAuthorId = async (authorId, page = 0, size = 20,  fi
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
             }
         });
 
@@ -71,7 +69,6 @@ export const findEventById = async (eventId) => {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
             }
         });
 
