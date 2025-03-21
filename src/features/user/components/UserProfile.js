@@ -1,5 +1,5 @@
-import {useEffect, useState} from "react";
-import {findUsersProfile, checkIsAdmin, checkIsOrganizer} from "../services/userService";
+import React, {useEffect, useState} from "react";
+import {findUsersProfile, checkIsAdmin, checkIsOrganizer, addRoleToUser} from "../services/userService";
 import {useNavigate} from "react-router-dom";
 import "../styles/styles.scss"
 import {createEvent, deleteEventById} from "../../event/services/eventSerivce";
@@ -11,6 +11,8 @@ const UserProfile = () => {
     const [isOrganizerField, setIsOrganizerField] = useState(false);
     const [isAdminField, setIsAdminField] = useState(false);
     const [eventId, setEventId] = useState("");
+    const [addRoleUserId, setAddRoleUserId] = useState("");
+    const [addRoleField, setAddRoleField] = useState("");
     const [isOpenCreateEventForm, setIsOpenCreateEventForm] = useState(false);
 
     const navigate = useNavigate();
@@ -53,6 +55,33 @@ const UserProfile = () => {
             setEventId("");
         } catch (error) {
             alert(`Помилка видалення події: ${error.message}`);
+        }
+    };
+
+    const handleAddRoleToUser = async (userId, role) => {
+        if (!userId) {
+            alert("Будь ласка, введіть ID користувача");
+            return;
+        }
+
+        if (!role) {
+            alert("Будь ласка, виберіть поле для ролі");
+            return;
+        }
+
+        const addRoleData = {
+            userId: Number(userId),
+            role: role.toUpperCase()
+        };
+
+        try {
+            var result = await addRoleToUser(addRoleData);
+            if (result) {
+                alert('Роль успішно додана')
+            }
+            setEventId("");
+        } catch (error) {
+            alert(`Помилка додавання ролі: ${error.message}`);
         }
     };
 
@@ -137,6 +166,35 @@ const UserProfile = () => {
                         onClick={() => handleDeleteEvent(eventId)}
                     >
                         Видалити
+                    </button>
+                </div>
+            )}
+
+            {isAdminField && (
+                <div className="add-to-user-role-form">
+                    <label htmlFor="userId" className="add-to-user-role-form__userid-field">
+                        Введіть ID користувача для видачі ролі:
+                    </label>
+                    <input
+                        type="number"
+                        id="userId"
+                        className="add-to-user-role-form__input"
+                        value={addRoleUserId}
+                        onChange={(e) => setAddRoleUserId(e.target.value)}
+                        placeholder="ID користувача"
+                    />
+                    <select className="add-to-user-role-form__role-field"
+                    onChange={(e) => setAddRoleField(e.target.value)}>
+                        <option value="">Оберіть роль</option>
+                        <option value="ROLE_ORGANIZER">Організатор</option>
+                        <option value="ROLE_ADMIN">Адміністратор</option>
+                    </select>
+
+                    <button
+                        className="add-to-user-role-form__button"
+                        onClick={() => handleAddRoleToUser(addRoleUserId, addRoleField)}
+                    >
+                        Додати роль
                     </button>
                 </div>
             )}

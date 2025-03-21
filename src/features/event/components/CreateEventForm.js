@@ -19,7 +19,7 @@ const CreateEventForm = ({onCreate}) => {
         dateOfStartEvent: "",
         price: "",
         city: "",
-        google_map_coordinates: "",
+        googleMapCoordinates: "",
         registrationAvailableUntil: "",
         categoryIds: "",
     });
@@ -82,7 +82,7 @@ const CreateEventForm = ({onCreate}) => {
 
             setEventData((prev) => ({
                 ...prev,
-                google_map_coordinates: `${lat},${lng}`,
+                googleMapCoordinates: `${lat},${lng}`,
             }));
 
             if (markerRef.current) {
@@ -146,7 +146,7 @@ const CreateEventForm = ({onCreate}) => {
 
             <div>
                 <div ref={mapRef} style={{width: "100%", height: "500px"}}/>
-                <p>📍 Координати: {eventData.google_map_coordinates || "Натисніть на карту"}</p>
+                <p>📍 Координати: {eventData.googleMapCoordinates || "Натисніть на карту"}</p>
             </div>
 
             <button

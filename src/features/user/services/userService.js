@@ -25,6 +25,31 @@ export const findUsersProfile = async () => {
     }
 };
 
+export const addRoleToUser = async (addRoleData) => {
+    try {
+        const token = localStorage.getItem('token');
+
+        const response = await fetch(`${API_ENDPOINTS.USER}/add-role`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(addRoleData)
+        });
+
+        if (response.status !== 200 ) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || `Помилка видалення івентів: ${response.status}`);
+            return false;
+        }
+
+        return true;
+    } catch (error) {
+        throw error;
+    }
+};
+
 export const checkIsAdmin = () => {
     const token = localStorage.getItem("token");
     if (!token) return false;

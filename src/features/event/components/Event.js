@@ -106,7 +106,7 @@ const Event = () => {
             <h2 className="event_title">Мапа та опис</h2>
             <div className="event_descr-wrapper">
                 <div className="event_descr-wrapper__map-block">
-                    <MapComponent coordinates={event.google_map_coordinates}/>
+                    <MapComponent coordinates={event.googleMapCoordinates}/>
                 </div>
 
                 <div className="event_descr-wrapper__text-block">
